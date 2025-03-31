@@ -87,8 +87,11 @@ def handle_message(message):
 
             elif message_type == 5:
                 # Handle message type 5
-                subsystem_id = my_string[5]
-                print(f'ESP: subsystem {subsystem_id} that is experiencing error')
+                subsystem_id = message[5:6]
+                if subsystem_id in team:
+                    print(f'ESP: subsystem {subsystem_id} that is experiencing error')
+                else:
+                    print(f'ESP: Subsystem, {subsystem_id} is not in team.')
                 pass
 
             elif message_type == 6:
@@ -233,21 +236,21 @@ async def main():
     while True:
         token = counter%100
         
-        if token == 9: # MESSAGE TYPE1
-            message = b'AZcd\x0130dfdsgrejhv dfjhgdlkfjhvldkfj fjklhguieoeh dfhuigb dfjfdgfdgsdfgdfgdffYB'
+        if token == 6: # MESSAGE TYPE1
+            message = b'AZbd\x0112YB'
             send_message(message)
     
-        if token == 11: # MESSAGE TYPE3
-            message = b'AZbX\x03wifi is not communicatingYB'       
-            send_message(message)
+        if token == 20: # MESSAGE TYPE3
+             message = b'AZbd\x03wifi is not communicatingYB'       
+             send_message(message)
 
-        if token == 15: # MESSAGE TYPE2
-            message = b'AZcb\x021\x10YB'
-            send_message(message)
+        # if token == 75: # MESSAGE TYPE4
+        #     message = b'AZbd\x041YB'
+        #     send_message(message)
 
-        if token == 22: # MESSAGE TYPE6
-            message = b'AZcX\x08this is broadcastYB'
-            send_message(message)
+        # if token == 22: # MESSAGE TYPE8
+        #     message = b'AZbX\x08this is broadcastYB'
+        #     send_message(message)
 
         # if token == 40: # MESSAGE TYPE4
         #     message = b'AZcb\x040YB'
